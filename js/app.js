@@ -1,7 +1,6 @@
-// Model === Data , View === UI, Controller === Brain - 
+// Modelo === Datos , Vista === UI, Controlador === Cerebro
 
-
-//Model
+// Modelo
 const model = {
     currentCar: null,
     cars: [
@@ -33,13 +32,13 @@ const model = {
     ],
 };
 
-// Controller
+// Controlador
 const controller = {
     init() {
-        // set our current car to the first one in the list
+        // establecer el coche actual como el primero de la lista
         model.currentCar = model.cars[0];
 
-        // tell our views to initialize
+        // decirle a nuestras vistas que se inicialicen
         carListView.init();
         carView.init();
     },
@@ -52,31 +51,31 @@ const controller = {
         return model.cars;
     },
 
-    // set the currently-selected car to the object passed in
+    // establecer el coche actualmente seleccionado con el objeto pasado como argumento
     setCurrentCar(car) {
         model.currentCar = car;
     },
 
-    // increments the counter for the currently-selected car
+    // incrementar el contador para el coche actualmente seleccionado
     incrementCounter() {
         model.currentCar.clickCount++;
         carView.render();
     },
 };
 
-// Views
+// Vistas
 const carView = {
     init() {
-        // store pointer to our DOM elements for easy access later
+        // almacenar punteros a nuestros elementos del DOM para fácil acceso luego
         this.carElem = document.getElementById('car');
         this.carNameElem = document.getElementById('car-name');
         this.carImageElem = document.getElementById('car-img');
         this.countElem = document.getElementById('car-count');
 
-        // on click increment the current car's counter
+        // al hacer clic, incrementar el contador del coche actual
         this.carImageElem.addEventListener('click', this.clickHandler);
 
-        // render this view (update the DOM elements with the right values)
+        // renderizar esta vista (actualizar los elementos del DOM con los valores correctos)
         this.render();
     },
 
@@ -85,7 +84,7 @@ const carView = {
     },
 
     render() {
-        // update the DOM elements with values from the current car
+        // actualizar los elementos del DOM con valores del coche actual
         const currentCar = controller.getCurrentCar();
         this.countElem.textContent = currentCar.clickCount;
         this.carNameElem.textContent = currentCar.name;
@@ -96,10 +95,10 @@ const carView = {
 
 const carListView = {
     init() {
-        // store the DOM element for easy access later
+        // almacenar el elemento del DOM para fácil acceso luego
         this.carListElem = document.getElementById('car-list');
 
-        // render this view (update the DOM elements with the right values)
+        // renderizar esta vista (actualizar los elementos del DOM con los valores correctos)
         this.render();
     },
 
@@ -107,18 +106,18 @@ const carListView = {
         let car;
         let elem;
         let i;
-        // get the cars we'll be rendering from the controller
+        // obtener los coches que vamos a renderizar desde el controlador
         const cars = controller.getCars();
 
-        // empty the car list
+        // vaciar la lista de coches
         this.carListElem.innerHTML = '';
 
-        // loop over the cars
+        // recorrer los coches
         for(let i = 0; i < cars.length; i++) {
-            // this is the car we've currently looping over
+            // este es el coche que estamos recorriendo actualmente
             car = cars[i];
 
-            // make a new car list item and set its text
+            // crear un nuevo elemento de lista de coches y establecer su texto
             elem = document.createElement('li');
             elem.className = 'list-group-item d-flex justify-content-between lh-condensed';
             elem.style.cursor = 'pointer';
@@ -132,11 +131,11 @@ const carListView = {
                   };
                 })(car)
               );
-                // finally, add the element to the list
+                // finalmente, añadir el elemento a la lista
                 this.carListElem.appendChild(elem);
         }
     },
 };
 
-// Let's goo!
+// ¡Vamos allá!
 controller.init();
